@@ -1,156 +1,106 @@
-# CRUD de Computadoras - PHP Puro + Bootstrap
+# 💻 CRUD Tienda de Computadoras
 
-Una aplicación web simple para gestionar un inventario de computadoras, desarrollada en PHP puro con Bootstrap 5 para el diseño.
+Sistema de gestión de inventario de computadoras con PHP y Azure SQL Database.
 
-## Características
+## 📋 Descripción
 
-- ✅ **Crear** nuevas computadoras
-- ✅ **Leer** lista de computadoras y ver detalles
-- ✅ **Actualizar** información de computadoras existentes
-- ✅ **Eliminar** computadoras del inventario
-- 🎨 Interfaz moderna con Bootstrap 5
-- 📱 Diseño responsivo
-- ✔️ Validación de formularios
-- 🔒 Uso de PDO para seguridad contra SQL injection
+Aplicación web CRUD para administrar un catálogo de computadoras con especificaciones técnicas, precios y control de stock.
 
-## Requisitos
+## ✨ Funcionalidades
 
-- XAMPP (Apache + MySQL + PHP)
-- PHP 7.4 o superior
-- MySQL/MariaDB
+- ➕ Crear nuevas computadoras
+- 📋 Listar todas las computadoras
+- 🔍 Ver detalles completos
+- ✏️ Editar información
+- 🗑️ Eliminar registros
 
-## Instalación
+## 🛠️ Tecnologías
 
-1. **Clonar/Copiar archivos** en la carpeta `htdocs` de XAMPP:
-   ```
-   c:\xampp\htdocs\S+\
-   ```
+- PHP 8.2.12
+- Azure SQL Database
+- Bootstrap 5
+- PDO con drivers SQLSRV
 
-2. **Crear la base de datos**:
-   - Abrir phpMyAdmin (http://localhost/phpmyadmin)
-   - Crear una nueva base de datos llamada `computadoras_db`
-   - Importar o ejecutar el archivo `tabla_computadoras.sql`
+## 📦 Requisitos
 
-3. **Configurar conexión** (opcional):
-   - Editar `config.php` si necesitas cambiar los datos de conexión
-   - Por defecto usa: host=localhost, user=root, password=vacío
+1. XAMPP con PHP 8.2+
+2. Microsoft ODBC Driver 18 for SQL Server
+3. Drivers PHP para SQL Server (5.12.0)
+4. Visual C++ Redistributable
 
-4. **Acceder a la aplicación**:
-   ```
-   http://localhost/S+/
-   ```
+## 🚀 Instalación Rápida
 
-## Estructura de Archivos
+### 1. Instalar Drivers
 
-```
-S+/
-├── config/
-│   ├── config.php      # Configuración general de la aplicación
-│   └── database.php    # Configuración de base de datos
-├── views/
-│   ├── listado.php     # Página principal (listado de computadoras)
-│   ├── agregar.php     # Formulario para agregar computadora
-│   ├── editar.php      # Formulario para editar computadora
-│   └── ver.php         # Ver detalles de computadora
-├── includes/
-│   ├── header.php      # Header común con navegación
-│   └── footer.php      # Footer común
-├── assets/
-│   └── style.css       # Estilos personalizados
-├── index.php           # Archivo principal (redirige al listado)
-├── tabla_computadoras.sql  # Script de base de datos
-└── README.md           # Este archivo
+**Drivers PHP:**
+- Descarga: https://github.com/microsoft/msphpsql/releases
+- Copia `php_sqlsrv_82_ts.dll` y `php_pdo_sqlsrv_82_ts.dll` a `C:\xampp\php\ext\`
+
+**Agregar a `php.ini`:**
+```ini
+extension=php_sqlsrv_82_ts.dll
+extension=php_pdo_sqlsrv_82_ts.dll
 ```
 
-## Funcionalidades
+**ODBC Driver:**
+- Descarga e instala: https://go.microsoft.com/fwlink/?linkid=2249004
 
-### Página Principal (views/listado.php)
-- Lista todas las computadoras en una tabla responsiva
-- Botones de acción: Ver, Editar, Eliminar
-- Mensajes de confirmación para operaciones exitosas
-- Contador total de computadoras
-- Navegación integrada con navbar
+### 2. Configurar Base de Datos
 
-### Agregar Computadora (views/agregar.php)
-- Formulario completo con validación
-- Campos obligatorios marcados con *
-- Selects predefinidos para marca, categoría y RAM
-- Validación tanto del lado cliente como servidor
-- Header y footer comunes
+✅ **El proyecto ya está configurado con Azure SQL Database**
 
-### Editar Computadora (views/editar.php)
-- Formulario prellenado con datos existentes
-- Mismas validaciones que el formulario de agregar
-- Muestra fecha de registro original
-- Interfaz consistente con el resto de la aplicación
+La conexión está establecida en `config/database.php`:
+- Servidor: `1536271azure.database.windows.net`
+- Base de datos: `tiendacomputadora`
+- Conexión mediante PDO con drivers SQLSRV
 
-### Ver Detalles (views/ver.php)
-- Vista detallada de una computadora específica
-- Especificaciones técnicas en tarjetas visuales
-- Botones de acción: Editar y Eliminar
-- Diseño mejorado con estilos personalizados
+**Nota:** Las credenciales están configuradas y la base de datos está operativa.
 
-## Campos de la Base de Datos
+### 3. Iniciar Aplicación
 
-- **id**: Identificador único (auto-increment)
-- **nombre**: Nombre del modelo
-- **marca**: Marca del fabricante
-- **categoria**: Gaming, Desktop, Laptop, etc.
-- **procesador**: Modelo del procesador
-- **ram_gb**: Cantidad de RAM en GB
-- **almacenamiento**: Tipo y capacidad de almacenamiento
-- **tarjeta_grafica**: Modelo de tarjeta gráfica
-- **precio**: Precio en formato decimal
-- **stock**: Cantidad disponible
-- **descripcion**: Descripción opcional
-- **fecha_agregado**: Timestamp de creación
+```bash
+# Inicia Apache en XAMPP
+http://localhost/Tienda-Computadora/
+```
 
-## Arquitectura y Organización
+## 📁 Estructura
 
-### Separación de Responsabilidades
-- **config/**: Configuraciones de la aplicación y base de datos
-- **views/**: Páginas de la interfaz de usuario
-- **includes/**: Componentes reutilizables (header, footer)
-- **assets/**: Recursos estáticos (CSS, JS, imágenes)
+```
+Tienda-Computadora/
+├── assets/              # CSS, JS, imágenes
+├── config/              # Configuración y conexión BD
+├── Database/            # La tabla computadoras
+├── includes/            # Header y footer
+├── pages/               # CRUD (listado, agregar, editar, ver)
+└── index.php
+```
 
-### Ventajas de la Nueva Estructura
-- ✅ **Mantenibilidad**: Código organizado y fácil de mantener
-- ✅ **Reutilización**: Header y footer comunes en todas las páginas
-- ✅ **Escalabilidad**: Fácil agregar nuevas funcionalidades
-- ✅ **Separación**: Lógica separada de la presentación
-- ✅ **Configuración centralizada**: Un solo lugar para configuraciones
+## 🌐 Deploy en Azure App Service
 
-## Tecnologías Utilizadas
+### Ventajas
+- Drivers ya instalados
+- Sin configuración manual
 
-- **Backend**: PHP 8+ con PDO
-- **Frontend**: Bootstrap 5.3.0 + CSS personalizado
-- **Iconos**: Bootstrap Icons
-- **Base de datos**: MySQL/MariaDB
-- **Servidor**: Apache (XAMPP)
-- **Arquitectura**: MVC simplificado
+### Pasos
+1. Crear App Service en Azure
+2. Configurar variables de entorno (DB_SERVER, DB_USERNAME, etc.)
+3. Habilitar extensiones: `pdo_sqlsrv`, `sqlsrv`
+4. Desplegar código (Git/FTP)
 
-## Seguridad
+## 🔒 Seguridad
 
-- Uso de **PDO con prepared statements** para prevenir SQL injection
-- **Validación de datos** tanto en cliente como servidor
-- **Escape de HTML** para prevenir XSS
-- **Validación de tipos** para parámetros numéricos
+- PDO con prepared statements
+- Validación con `htmlspecialchars()`
+- Conexión cifrada a Azure
+- **⚠️ No subir credenciales a repositorios públicos**
 
-## Personalización
+## 🐛 Problemas Comunes
 
-Para personalizar la aplicación:
+| Error | Solución |
+|-------|----------|
+| "could not find driver" | Instalar drivers PHP SQLSRV |
+| "ODBC Driver not found" | Instalar ODBC Driver 17 |
+| "unsupported attribute" | Usar `LoginTimeout` en DSN, no en opciones PDO |
+| Error de conexión Azure | Verificar firewall y credenciales |
 
-1. **Agregar nuevas marcas**: Editar los arrays en `agregar.php` y `editar.php`
-2. **Modificar campos**: Actualizar la estructura de la tabla y los formularios
-3. **Cambiar estilos**: Personalizar las clases de Bootstrap o agregar CSS custom
-4. **Agregar funcionalidades**: Implementar búsqueda, filtros, paginación, etc.
-
-## Posibles Mejoras
-
-- [ ] Sistema de búsqueda y filtros
-- [ ] Paginación para listas grandes
-- [ ] Subida de imágenes para computadoras
-- [ ] Exportar datos a Excel/PDF
-- [ ] Sistema de usuarios y autenticación
-- [ ] API REST para integración con otras aplicaciones
-- [ ] Dashboard con estadísticas
+**Versión:** 1.0.0 | **Stack:** PHP + Azure SQL Database
