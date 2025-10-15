@@ -31,7 +31,6 @@ require_once '../includes/header.php';
         <div class="row">
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h1 class="text-primary"><i class="bi bi-laptop"></i> Gestión de Computadoras</h1>
                     <a href="agregar.php" class="btn btn-success">
                         <i class="bi bi-plus-circle"></i> Agregar Nueva
                     </a>
