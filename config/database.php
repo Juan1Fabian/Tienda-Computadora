@@ -1,11 +1,22 @@
 <?php
-//Configuración de base de datos Azure SQL
+// config/database.php - Configuración de base de datos Azure SQL
 
-// Configuración de Azure SQL Database
-define('DB_SERVER', '1536271azure.database.windows.net');
-define('DB_USERNAME', 'tiendacomputadora');
-define('DB_PASSWORD', 'OmegaZero3juan*');
-define('DB_NAME', 'tiendacomputadora');
+// Detectar si estamos en Azure o local
+$isAzure = getenv('WEBSITE_SITE_NAME') !== false;
+
+if ($isAzure) {
+    // En Azure: usar variables de entorno
+    define('DB_SERVER', getenv('DB_SERVER'));
+    define('DB_USERNAME', getenv('DB_USERNAME'));
+    define('DB_PASSWORD', getenv('DB_PASSWORD'));
+    define('DB_NAME', getenv('DB_NAME'));
+} else {
+    // En local: usar valores hardcoded
+    define('DB_SERVER', '1536271azure.database.windows.net');
+    define('DB_USERNAME', 'tiendacomputadora');
+    define('DB_PASSWORD', 'OmegaZero3juan*');
+    define('DB_NAME', 'tiendacomputadora');
+}
 
 // Crear conexión PDO con SQL Server
 try {
@@ -19,16 +30,13 @@ try {
         )
     );
     
-    if (DEBUG_MODE) {
-        echo "<!-- Conexión a base de datos exitosa -->";
-    }
     
 } catch (PDOException $e) {
-    if (DEBUG_MODE) {
+    error_log("Error de conexión BD: " . $e->getMessage());
+    
+    if (defined('DEBUG_MODE') && DEBUG_MODE) {
         die("Error de conexión: " . $e->getMessage());
     } else {
-        error_log("Error de conexión BD: " . $e->getMessage());
-        die("Error al conectar con la base de datos. Por favor, intente más tarde.");
+        die("Error al conectar con la base de datos.");
     }
 }
-?>
